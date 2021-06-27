@@ -11,5 +11,5 @@ choco install git -y
 
 $File = "$ENV:temp\azdata.msi"
 Invoke-WebRequest -Uri https://aka.ms/azdata-msi -OutFile $file
-msiexec /qn /i $file
+msiexec  /i $file
 

@@ -5,8 +5,14 @@ Setting up a AKS cluster and adding a Azure Arc Enabled Data Services Direct Dat
 So I 
 - deployed the VM [deploy-vm.ps1](deploy-vm.ps1)
 - set up the VM [set up vm.ps1](set-up-vm.ps1)
+
+or I ran from my machine and
+- Created AKS [create-aks.ps1](create-aks.ps1)
 - Deployed the data controller from the portal
-- Connected to the data controlled in ADS in the jump box successfully
+- got the endpoints  
+  [endpointswithjustdatacontroller.png](images/endpointswithjustdatacontroller.png)  
+- Connected to the data controlled in ADS in the jump box successfully  
+  [connecteddc.png](images/connecteddc.png)  
 - Deployed a single node manged instance from the portal
 - Deployed a 3 node replica managed instance from the portal
 - Deployed a single node manged instance using bicep [deploy-mi.ps1](deploy-mi.ps1) from my own machine because easy with secrets
@@ -117,12 +123,13 @@ My machine
   }
 }
 
-pwsh 7.1.3> azdata --version
-20.3.4
 
-Build (20210601.1)
+ pwsh 7.1.3> azdata --version
+20.3.5
 
-SQL Server 2019 (15.0.4123)
+Build (20210609.2)
+
+SQL Server 2019 (15.0.4138)
 
 Legal docs and information: https://aka.ms/eula-azdata-en
 
