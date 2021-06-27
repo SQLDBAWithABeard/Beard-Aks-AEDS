@@ -57,12 +57,6 @@ I can connect to grafana and see the instances
 
 ![grafana.png](images/grafana.png)
 
-but `azdata arc dc endpoint list`
-
-does not show the log search endpoint
-
-![nologendpoint.png](images/nologendpoint.png)
-
 although I can connect to it
 
 ![kibana.png](images/kibana.png)
