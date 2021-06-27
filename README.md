@@ -6,7 +6,7 @@ So I
 - deployed the VM [deploy-vm.ps1](deploy-vm.ps1)
 - set up the VM [set up vm.ps1](set-up-vm.ps1)
 
-or I ran from my machine and
+or I ran from my machine - __both ways gave exactly the same results__ and
 - Created AKS [create-aks.ps1](create-aks.ps1)
 - Deployed the data controller from the portal
 - got the endpoints  
