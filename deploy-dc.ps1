@@ -1,0 +1,56 @@
+Set-Location D:\OneDrive\Documents\GitHub\BeardLInux\bicep
+$bens_creds = New-Object System.Management.Automation.PSCredential ((Get-Secret -Name beardmi-benadmin-user -AsPlainText), (Get-Secret -Name beardmi-benadmin-pwd))
+$workspace_key_cred = New-Object System.Management.Automation.PSCredential ('workspacekey', (Get-Secret -Name workspace-shared-key))
+$tenant_id_cred = New-Object System.Management.Automation.PSCredential ('tenant-id', (Get-Secret -Name tenant-id))
+$client_id_cred = New-Object System.Management.Automation.PSCredential ('client-id', (Get-Secret -Name client-id))
+$client_secret_cred = New-Object System.Management.Automation.PSCredential ('client-secret', (Get-Secret -Name client-secret))
+$workspace_id_cred = New-Object System.Management.Automation.PSCredential ('workspace-id', (Get-Secret -Name workspace-id))
+$uspClientId = "$($client_id_cred.GetNetworkCredential().Password)"
+$uspTenantId = "$($tenant_id_cred.GetNetworkCredential().Password)"
+$logAnalyticsWorkspaceId = "$($workspace_id_cred.GetNetworkCredential().Password)"
+$logAnalyticsPrimaryKey = "$($workspace_key_cred.GetNetworkCredential().Password)"
+$resourceGroupName = 'beardarc'
+$location = 'eastus'
+
+$date = Get-Date -Format yyyyMMddHHmmsss
+$deploymentname = 'deploy_dc_{0}_{1}' -f $ResourceGroupName, $date # name of the deployment seen in the activity log
+$deploymentConfig = @{
+    resourceGroupName       = $resourceGroupName  
+    Name                    = $deploymentname
+    TemplateFile            = 'data-controller-direct.bicep' 
+    dcname                  = 'beard-aks-cluster-dc'
+    customLocationName      = 'beard-aks-cluster-location'
+    location                = $location
+    dcUsername              = $bens_creds.UserName
+    dcPassword              = $bens_creds.Password
+    uspClientId             = $uspClientId 
+    uspTenantId             = $uspTenantId
+    uspAuthority            = 'https://login.microsoftonline.com'
+    uspClientSecret         = $client_secret_cred.Password
+    logAnalyticsWorkspaceId = $logAnalyticsWorkspaceId
+    logAnalyticsPrimaryKey  = $logAnalyticsPrimaryKey
+    dockerImagePullPolicy   = 'Always'
+    dockerImageTag          = 'public-preview-may-2021'
+    dockerRegistry          = 'mcr.microsoft.com'
+    dockerRepository        = 'arcdata'
+    controllerPort          = 30080
+    serviceType             = 'LoadBalancer'
+    serviceProxyPort        = 30777
+    connectionMode          = 'direct'
+    logsRotationDays        = 7
+    logsRotationSize        = 5000
+    dataStorageClass        = 'default'
+    dataStorageSize         = '15Gi'
+    logsStorageClass        = 'default'
+    logsStorageSize         = '15Gi'
+    namespace               = 'arc'
+    tags                    = @{
+        Important    = 'This is controlled by Bicep'
+        creator      = 'The Beard'
+        project      = 'For Ben'
+        BenIsAwesome = $true
+    }
+}
+
+New-AzResourceGroupDeployment @deploymentConfig -WhatIf -Verbose
+
