@@ -57,7 +57,7 @@ I can connect to grafana and see the instances
 
 ![grafana.png](images/grafana.png)
 
-although I can connect to it
+and I can connect to kibana
 
 ![kibana.png](images/kibana.png)
 
