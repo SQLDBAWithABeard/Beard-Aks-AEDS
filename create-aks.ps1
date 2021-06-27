@@ -1,18 +1,18 @@
 # Create AKS
 
 $location = 'eastus'
-$resourceGroup = 'beardarc'
+$resourceGroup = 'beardarc2'
 $subscription_id = New-Object System.Management.Automation.PSCredential ('subscription-id', (Get-Secret -Name subscription-id))
 $ENV:SUBSCRIPTION = "$($subscription_id.GetNetworkCredential().Password)"
 $subscription = $ENV:SUBSCRIPTION
-$aksClusterName = 'beard-aks-cluster'
+$aksClusterName = 'beard-aks-cluster2'
 $clusterNodePoolSize = "Standard_DS4_v2"
 $benscreds = New-Object System.Management.Automation.PSCredential ((Get-Secret -Name beardmi-benadmin-user -AsPlainText), (Get-Secret -Name beardmi-benadmin-pwd))
 $ENV:AZDATA_USERNAME="$($benscreds.UserName)"
 $ENV:AZDATA_PASSWORD="$($benscreds.GetNetworkCredential().Password)"
 $ENV:ACCEPT_EULA = 'yes'
-$customLocation  = 'beard-aks-cluster-location'
-$dataController= "ben-aks-direct"
+$customLocation  = 'beard-aks-cluster-location2'
+$dataController= "ben-aks-direct2"
 
 az account set -s $ENV:SUBSCRIPTION 
 az aks create -g $resourceGroup -n $aksClusterName --node-vm-size $clusterNodePoolSize # --generate-ssh-keys 
