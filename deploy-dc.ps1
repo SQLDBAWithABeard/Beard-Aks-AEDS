@@ -1,4 +1,4 @@
-Set-Location D:\OneDrive\Documents\GitHub\BeardLInux\bicep
+Set-Location D:\OneDrive\Documents\GitHub\Beard-Aks-AEDS\bicep\
 $bens_creds = New-Object System.Management.Automation.PSCredential ((Get-Secret -Name beardmi-benadmin-user -AsPlainText), (Get-Secret -Name beardmi-benadmin-pwd))
 $workspace_key_cred = New-Object System.Management.Automation.PSCredential ('workspacekey', (Get-Secret -Name workspace-shared-key))
 $tenant_id_cred = New-Object System.Management.Automation.PSCredential ('tenant-id', (Get-Secret -Name tenant-id))
@@ -9,8 +9,7 @@ $uspClientId = "$($client_id_cred.GetNetworkCredential().Password)"
 $uspTenantId = "$($tenant_id_cred.GetNetworkCredential().Password)"
 $logAnalyticsWorkspaceId = "$($workspace_id_cred.GetNetworkCredential().Password)"
 $logAnalyticsPrimaryKey = "$($workspace_key_cred.GetNetworkCredential().Password)"
-$resourceGroupName = 'beardarc'
-$location = 'eastus'
+$resourceGroupName = 'beardarc2'
 
 $date = Get-Date -Format yyyyMMddHHmmsss
 $deploymentname = 'deploy_dc_{0}_{1}' -f $ResourceGroupName, $date # name of the deployment seen in the activity log
@@ -18,9 +17,8 @@ $deploymentConfig = @{
     resourceGroupName       = $resourceGroupName  
     Name                    = $deploymentname
     TemplateFile            = 'data-controller-direct.bicep' 
-    dcname                  = 'beard-aks-cluster-dc'
-    customLocationName      = 'beard-aks-cluster-location'
-    location                = $location
+    dcname                  = 'beard-aks-cluster2-dc'
+    customLocationName      = 'beard-aks-cluster-location2'
     dcUsername              = $bens_creds.UserName
     dcPassword              = $bens_creds.Password
     uspClientId             = $uspClientId 
