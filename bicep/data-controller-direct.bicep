@@ -3,7 +3,7 @@ param tags object = {
 }
 param dcname string = 'beard-aks-direct'
 param customLocationName string = 'beard-aks-cluster-location'
-param location string = 'eastus'
+var customlocation =  resourceId('microsoft.extendedlocation/customlocations', customLocationName)
 param dcUsername string
 @secure()
 param dcPassword string
@@ -32,9 +32,9 @@ param namespace string = 'arc'
 
 resource datacontroller 'Microsoft.AzureArcData/dataControllers@2021-06-01-preview' = {
   name: dcname
-  location: location
+  location: resourceGroup().location
   extendedLocation: {
-    name: resourceId('microsoft.extendedlocation/customlocations', customLocationName)
+    name: customlocation
     type: 'CustomLocation'
   }
   tags: tags
@@ -89,19 +89,19 @@ resource datacontroller 'Microsoft.AzureArcData/dataControllers@2021-06-01-previ
         ]
         settings: {
           ElasticSearch: {
-            'vm.max_map_count': -1
+            'vm.max_map_count': '-1'
           }
           azure: {
             connectionMode: connectionMode
-            location: location
+            location: resourceGroup().location
             resourceGroup: resourceGroup().name
             subscription: subscription().subscriptionId
           }
           controller: {
             displayName: dcname
-            enableBilling: true
-            'logs.rotation.days': logsRotationDays
-            'logs.rotation.size': logsRotationSize
+            enableBilling: 'True'
+            'logs.rotation.days': '7'
+            'logs.rotation.size': '5000'
           }
         }
         storage: {
@@ -124,3 +124,5 @@ resource datacontroller 'Microsoft.AzureArcData/dataControllers@2021-06-01-previ
     }
   }
 }
+
+output customlocationvar string = customlocation
