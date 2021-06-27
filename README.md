@@ -10,9 +10,9 @@ or I ran from my machine and
 - Created AKS [create-aks.ps1](create-aks.ps1)
 - Deployed the data controller from the portal
 - got the endpoints  
-  [endpointswithjustdatacontroller.png](images/endpointswithjustdatacontroller.png)  
+  ![endpointswithjustdatacontroller.png](images/endpointswithjustdatacontroller.png)  
 - Connected to the data controlled in ADS in the jump box successfully  
-  [connecteddc.png](images/connecteddc.png)  
+  ![connecteddc.png](images/connecteddc.png)  
 - Deployed a single node manged instance from the portal
 - Deployed a 3 node replica managed instance from the portal
 - Deployed a single node manged instance using bicep [deploy-mi.ps1](deploy-mi.ps1) from my own machine because easy with secrets
