@@ -28,7 +28,7 @@ When I try to connect back to the data controller in ADS (on the jump box)
 
 If I try and reconnect 
 
-![adsdc2](images/adsdcfailconnect2.png)  
+![adsdc2](images/adsfailconnect2.png)  
 
 Enabling debug logging in ADS and running again shows
 
