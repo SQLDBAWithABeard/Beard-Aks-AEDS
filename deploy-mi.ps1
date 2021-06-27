@@ -1,7 +1,7 @@
 
 Set-Location D:\OneDrive\Documents\GitHub\BeardLInux\bicep
 $benscreds = New-Object System.Management.Automation.PSCredential ((Get-Secret -Name beardmi-benadmin-user -AsPlainText), (Get-Secret -Name beardmi-benadmin-pwd))
-$resourceGroupName = 'beardarc'
+$resourceGroupName = 'beardarc2'
 
 $date = Get-Date -Format yyyyMMddHHmmsss
 $deploymentname = 'deploy_sqlmi_{0}_{1}' -f $ResourceGroupName, $date # name of the deployment seen in the activity log
@@ -9,9 +9,9 @@ $deploymentConfig = @{
     resourceGroupName              = $resourceGroupName  
     Name                           = $deploymentname
     TemplateFile                   = 'sql-mi.bicep' 
-    instancename                   = 'ben-in-aks-2'
-    dataControllerId               = 'beard-aks-direct'
-    customLocation                 = 'beard-aks-cluster-location'
+    instancename                   = 'ben-aks2-one'
+    dataControllerId               = 'beard-aks-direct2'
+    customLocation                 = 'beard-aks-cluster-location2'
     adminUserName                  = $benscreds.UserName
     adminPassword                  = $benscreds.Password
     namespace                      = 'arc'
