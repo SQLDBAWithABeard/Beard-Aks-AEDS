@@ -1,6 +1,6 @@
 # Create AKS
 
-$location = 'eastus'
+$location = 'westeurope'
 $resourceGroup = 'beardarc2'
 $subscription_id = New-Object System.Management.Automation.PSCredential ('subscription-id', (Get-Secret -Name subscription-id))
 $ENV:SUBSCRIPTION = "$($subscription_id.GetNetworkCredential().Password)"

@@ -139,3 +139,53 @@ x64
 
 ````
 
+and bicep deployment for data controller and SQL MI is now working also :-)
+
+![bicepmi](images/bicepmi.png)
+
+However, whilst metrics are uploaded
+
+````
+2021-06-28 11:05:42.7504 | INFO | [AzureUpload] ExportAndUpload starting...
+2021-06-28 11:05:42.7504 | INFO | [AzureUpload] Looping through resources to upload...
+2021-06-28 11:05:42.7504 | INFO | [AzureUpload] Trying to export metrics for ben-aks2-free...
+2021-06-28 11:05:42.7683 | INFO | [AzureUpload] Got "CPU Usage" metric from ben-aks2-free.
+2021-06-28 11:05:42.7833 | INFO | [AzureUpload] Start Logs ExportAndUpload at 20210628110342
+2021-06-28 11:05:42.7833 | INFO | [AzureUpload] Got "Memory Usage" metric from ben-aks2-free.
+2021-06-28 11:05:42.8049 | INFO | [AzureUpload] Got "Transactions/second" metric from ben-aks2-free.
+2021-06-28 11:05:42.8049 | INFO | [AzureUpload] Metrics found for resource ben-aks2-free.
+2021-06-28 11:05:42.8340 | INFO | [AzureUpload] Start retrieving last 15 minutes of logs for sqlmanagedinstance instance ben-aks2-free, this may take some time...
+2021-06-28 11:05:42.8472 | INFO | QueryElasticSearch called with body: {"StartTime":"2021-06-28T10:48:42.7833185+00:00","EndTime":"2021-06-28T10:49:42.7833185+00:00","TermQueries":{"custom_resource_name.keyword":"ben-aks2-free","kubernetes_container_name.keyword":"arc-sqlmi","log_filename.keyword":"/var/opt/mssql/log/errorlog"},"RegexQueries":{}}
+2021-06-28 11:05:42.9123 | INFO | [AzureUpload] Metric upload requestId: 677b5a58-2ab4-4f90-87f9-a6cc5605d088
+2021-06-28 11:05:43.4192 | INFO | [AzureUpload] Metric upload response status: OK.
+````
+
+![portalmetrics](images/portalmetrics.png)
+
+Logs are not
+
+````
+2021-06-28 11:05:44.6147 | INFO | QueryElasticSearch called with body: {"StartTime":"2021-06-28T11:02:42.7833185+00:00","EndTime":"2021-06-28T11:03:42.7833185+00:00","TermQueries":{"custom_resource_name.keyword":"ben-aks2-free","kubernetes_container_name.keyword":"arc-sqlmi","log_filename.keyword":"/var/opt/mssql/log/errorlog"},"RegexQueries":{}}
+2021-06-28 11:05:44.6605 | INFO | [AzureUpload] Elastic Search returning 177 records.
+2021-06-28 11:05:44.6605 | INFO | [AzureUpload] QueryElasticSearch add LogCollection with 177 records to responseList.
+2021-06-28 11:05:44.6605 | INFO | Collected 1 logs from UTC 20210628104842 to 20210628110342
+2021-06-28 11:05:44.6605 | INFO | [AzureUpload] Successfully exported logs to upload for sqlmanagedinstance instance ben-aks2-free
+2021-06-28 11:05:44.6639 | INFO | [AzureUpload] Uploading 4 log payloads for instance ben-aks2-free
+2021-06-28 11:05:44.6671 | INFO | [AzureUpload] Log upload request URI: https://cf3958a8-20e3-4422-8131-c762678d417d.ods.opinsights.azure.com/api/logs?api-version=2016-04-01
+2021-06-28 11:05:44.9935 | INFO | [AzureUpload] Log upload response status: OK.
+2021-06-28 11:05:44.9935 | INFO | [AzureUpload] Log upload request URI: https://cf3958a8-20e3-4422-8131-c762678d417d.ods.opinsights.azure.com/api/logs?api-version=2016-04-01
+2021-06-28 11:05:45.0077 | INFO | [AzureUpload] Log upload response status: Forbidden.
+2021-06-28 11:05:45.0077 | INFO | [AzureUpload] Log upload response failure msg: {"Error":"InvalidAuthorization","Message":"An invalid date format used in the x-ms-date header."}.
+2021-06-28 11:05:45.0077 | ERROR | [PeriodicTask] 'Export and upload custom logs' task threw an exception: System.InvalidOperationException: Nullable object must have a value.
+at System.Nullable`1.get_Value()
+at Microsoft.SqlServer.Controller.AzureUpload.ResilienceHttpClient.HttpInvoker(Func`1 action, String operation) in /tmp/jenkins/workspace/Releases/arc/arc-public-preview-may2021/aris-arc-private-preview/aris/projects/controller/src/Microsoft.SqlServer.Controller/AzureUpload/ResilienceHttpClient.cs:line 57
+at Microsoft.SqlServer.Controller.AzureUpload.LogResilienceHttpClient.PostAsyncWithRetry(String jsonBodyContent, Uri uri, String logType, String signature, String date, String resourceId) in /tmp/jenkins/workspace/Releases/arc/arc-public-preview-may2021/aris-arc-private-preview/aris/projects/controller/src/Microsoft.SqlServer.Controller/AzureUpload/Log/LogResilienceHttpClient.cs:line 31
+at Microsoft.SqlServer.Controller.AzureUpload.LogUploader.UploadInstanceLogExport(InstanceLogExport instanceLogExport, String url) in /tmp/jenkins/workspace/Releases/arc/arc-public-preview-may2021/aris-arc-private-preview/aris/projects/controller/src/Microsoft.SqlServer.Controller/AzureUpload/Log/LogUploader.cs:line 99
+at Microsoft.SqlServer.Controller.AzureUpload.LogUploader.ExportAndUpload() in /tmp/jenkins/workspace/Releases/arc/arc-public-preview-may2021/aris-arc-private-preview/aris/projects/controller/src/Microsoft.SqlServer.Controller/AzureUpload/Log/LogUploader.cs:line 73
+at Microsoft.SqlServer.Controller.ControllerService.<>c.<StartBackgroundTasks>b__64_6() in /tmp/jenkins/workspace/Releases/arc/arc-public-preview-may2021/aris-arc-private-preview/aris/projects/controller/src/Microsoft.SqlServer.Controller/ControllerService.cs:line 1766
+at Microsoft.SqlServer.Controller.Utils.PeriodicTask.RunAsync(String taskName, Action action, TimeSpan interval, CancellationToken cancellationToken) in /tmp/jenkins/workspace/Releases/arc/arc-public-preview-may2021/aris-arc-private-preview/aris/projects/controller/src/Microsoft.SqlServer.Controller/Utils/PeriodicTask.cs:line 49
+2021-06-28 11:05:51.9397 | INFO | [HadrRoleManagerStateMachine: ben-aks2-free] Transitioning from 'HealthyWait' to 'Healthy' state.
+
+````
+
+![portallogs](images/portallogs.png)

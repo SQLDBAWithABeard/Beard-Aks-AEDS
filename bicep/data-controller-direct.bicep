@@ -13,7 +13,8 @@ param uspAuthority string
 @secure()
 param uspClientSecret string
 param logAnalyticsWorkspaceId string
-param logAnalyticsPrimaryKey string
+param logAnalyticsResourceId string
+var logAnalyticsPrimaryKey = listKeys(logAnalyticsResourceId, '2020-10-01').primarySharedKey
 param dockerImagePullPolicy string = 'Always'
 param dockerImageTag string = 'public-preview-april-2021'
 param dockerRegistry string = 'mcr.microsoft.com'
