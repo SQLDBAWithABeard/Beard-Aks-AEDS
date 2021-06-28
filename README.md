@@ -189,3 +189,7 @@ at Microsoft.SqlServer.Controller.Utils.PeriodicTask.RunAsync(String taskName, A
 ````
 
 ![portallogs](images/portallogs.png)
+
+but later I found in the workspace (after I had deleted the data controller so I have no logs from there)
+
+![alt](images/logseventually.png)
