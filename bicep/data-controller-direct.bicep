@@ -1,7 +1,7 @@
 param tags object = {
   important: 'Controlled by Bicep'
 }
-param dcname string = 'beard-aks-direct'
+param dataControllerName string = 'beard-aks-direct'
 param customLocationName string = 'beard-aks-cluster-location'
 var customlocation =  resourceId('microsoft.extendedlocation/customlocations', customLocationName)
 param dcUsername string
@@ -12,9 +12,13 @@ param uspTenantId string
 param uspAuthority string
 @secure()
 param uspClientSecret string
-param logAnalyticsWorkspaceId string
-param logAnalyticsResourceId string
+param logAnalyticsResourceName string
+param logAnalyticsResourceGroupName string
+
+var logAnalyticsResourceId = resourceId(logAnalyticsResourceGroupName,'Microsoft.OperationalInsights/workspaces',logAnalyticsResourceName)
 var logAnalyticsPrimaryKey = listKeys(logAnalyticsResourceId, '2020-10-01').primarySharedKey
+var logAnalyticsWorkspaceId = reference(logAnalyticsResourceId,'2020-10-01').customerId
+
 param dockerImagePullPolicy string = 'Always'
 param dockerImageTag string = 'public-preview-april-2021'
 param dockerRegistry string = 'mcr.microsoft.com'
@@ -32,7 +36,7 @@ param logsStorageSize string = '15Gi'
 param namespace string = 'arc'
 
 resource datacontroller 'Microsoft.AzureArcData/dataControllers@2021-06-01-preview' = {
-  name: dcname
+  name: dataControllerName
   location: resourceGroup().location
   extendedLocation: {
     name: customlocation
@@ -99,10 +103,10 @@ resource datacontroller 'Microsoft.AzureArcData/dataControllers@2021-06-01-previ
             subscription: subscription().subscriptionId
           }
           controller: {
-            displayName: dcname
+            displayName: dataControllerName
             enableBilling: 'True'
-            'logs.rotation.days': '7'
-            'logs.rotation.size': '5000'
+            'logs.rotation.days': '${logsRotationDays}'
+            'logs.rotation.size': '${logsRotationSize}'
           }
         }
         storage: {
