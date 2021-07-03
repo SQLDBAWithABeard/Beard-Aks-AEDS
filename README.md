@@ -25,6 +25,7 @@ and set them with
 
 `Set-Secret -Name secretname -Value secretvalue`
 
+I recommend this way but in the scripts below you can choose to not use it.
 
 ## Installation
 To install all the componenets required using the scripts in the repo. You will need to alter the variables for your own environment.
