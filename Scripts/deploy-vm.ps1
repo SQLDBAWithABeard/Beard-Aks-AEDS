@@ -1,6 +1,17 @@
-Set-Location D:\OneDrive\Documents\GitHub\BeardLInux\bicep
-$benscreds = New-Object System.Management.Automation.PSCredential ((Get-Secret -Name beardmi-benadmin-user -AsPlainText), (Get-Secret -Name beardmi-benadmin-pwd))
+Set-Location D:\OneDrive\Documents\GitHub\BeardLInux\bicep # yes use your own path here !!
+
 $resourceGroupName = 'beardarc'
+
+# I use the SecretsManagement PowerShell module to store my secrets which can be installed with `Install-Module SecretsManagement`. I add secrets with `Set-Secret -Name nameofsecret -Secret secretvalue`.
+# You will need to change this for your own environment
+$admincredentials = New-Object System.Management.Automation.PSCredential ((Get-Secret -Name beardmi-benadmin-user -AsPlainText), (Get-Secret -Name beardmi-benadmin-pwd))
+
+<# 
+# if you do not store them in secrets management use this
+$admincredentials = New-Object System.Management.Automation.PSCredential ('username here ', (ConvertTo-SecureString -String 'password here' -AsPlainText))
+#>
+
+
 
 $date = Get-Date -Format yyyyMMddHHmmsss
 $deploymentname = 'deploy_sqlmi_{0}_{1}' -f $ResourceGroupName, $date # name of the deployment seen in the activity log
@@ -11,8 +22,8 @@ $deploymentConfig = @{
     virtualMachineName = 'jump'
     osDiskType         = 'Premium_LRS'
     virtualMachineSize = 'Standard_D8s_v3'
-    adminUsername      = $benscreds.UserName
-    adminPassword      = $benscreds.Password
+    adminUsername      = $admincredentials.UserName
+    adminPassword      = $admincredentials.Password
     publisher          = 'MicrosoftWindowsDesktop'
     offer              = 'Windows-10'
     sku                = '21h1-ent-g2'
@@ -25,4 +36,4 @@ $deploymentConfig = @{
     }
 }
 
-New-AzResourceGroupDeployment @deploymentConfig -WhatIf
+New-AzResourceGroupDeployment @deploymentConfig # -WhatIf  # uncomment what if to see "what if" !!

@@ -1,13 +1,13 @@
-Set-Location D:\OneDrive\Documents\GitHub\Beard-Aks-AEDS\bicep\
+Set-Location D:\OneDrive\Documents\GitHub\Beard-Aks-AEDS\bicep\ # yes use your own path here !!
 
-$resourceGroupName = 'beardarc2'
+$resourceGroupName = 'beardarc2' # the reosurce group name for the log analytics
 $date = Get-Date -Format yyyyMMddHHmmsss
 $deploymentname = 'deploy_loganalytics_{0}_{1}' -f $ResourceGroupName, $date # name of the deployment seen in the activity log
 $deploymentConfig = @{
     resourceGroupName                           = $resourceGroupName  
     Name                                        = $deploymentname
     TemplateFile                                = 'loganalytics.bicep' 
-    workspacename                               = 'aks2loganalytics' 
+    workspacename                               = 'aks2loganalytics' # unique name for log analytics
     enableLogAccessUsingOnlyResourcePermissions = $true
     publicNetworkAccessForIngestion             = 'Enabled' # Enabled Disabled
     publicNetworkAccessForQuery                 = 'Enabled' # Enabled Disabled
