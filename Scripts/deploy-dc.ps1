@@ -5,7 +5,7 @@ $logAnalyticsResourceGroupName = 'beardarc' # resource group name that has the l
 $dataControllerName            = 'beard-aks-cluster-dc' # the name you want for the data controller
 $customLocationName            = 'beard-aks-cluster-location' # the name for the custom location that you created in the Create AKS script
 
-# I use the SecretsManagement PowerShell module to store my secrets which can be installed with `Install-Module SecretsManagement`. I add secrets with `Set-Secret -Name nameofsecret -Secret secretvalue`.
+# I use the SecretsManagement PowerShell module to store my secrets which can be installed with `Install-Module SecretManagement`. I add secrets with `Set-Secret -Name nameofsecret -Secret secretvalue`.
 # You will need to change this for your own environment
 $admincredentials = New-Object System.Management.Automation.PSCredential ((Get-Secret -Name beardmi-benadmin-user -AsPlainText), (Get-Secret -Name beardmi-benadmin-pwd))
 

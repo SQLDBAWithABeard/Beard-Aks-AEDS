@@ -14,7 +14,7 @@ It requires
 
 ## First set some variables for the session
 
-I use the SecretsManagement PowerShell module to store my secrets which can be installed with `Install-Module SecretsManagement`. I add secrets with `Set-Secret -Name nameofsecret -Secret secretvalue`.
+I use the SecretsManagement PowerShell module to store my secrets which can be installed with `Install-Module SecretManagement`. I add secrets with `Set-Secret -Name nameofsecret -Secret secretvalue`.
 #>
 $location = 'eastus' # location of resource group
 $resourceGroup = 'beardarc' # name of the already created resource group
@@ -22,7 +22,7 @@ $aksClusterName = 'beard-aks-cluster' # the name of the AKS Cluster
 $clusterNodePoolSize = "Standard_DS4_v2" # The VM size for the AKS cluster node pool
 $customLocation  = 'beard-aks-cluster-location' # The name for the custom location
 
-# I use the SecretsManagement PowerShell module to store my secrets which can be installed with `Install-Module SecretsManagement`. I add secrets with `Set-Secret -Name nameofsecret -Secret secretvalue`.
+# I use the SecretsManagement PowerShell module to store my secrets which can be installed with `Install-Module SecretManagement`. I add secrets with `Set-Secret -Name nameofsecret -Secret secretvalue`.
 # You will need to change this for your own environment
 $admincredentials = New-Object System.Management.Automation.PSCredential ((Get-Secret -Name beardmi-benadmin-user -AsPlainText), (Get-Secret -Name beardmi-benadmin-pwd))
 $subscription_id = New-Object System.Management.Automation.PSCredential ('subscription-id', (Get-Secret -Name subscription-id))
