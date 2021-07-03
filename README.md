@@ -27,6 +27,13 @@ and set them with
 
 I recommend this way but in the scripts below you can choose to not use it.
 
+Create an empty resource group
+
+`az group create -l eastus -n BensAKSArcRG`
+or
+`New-AzResourceGroup -Name BensAKSArcRG -Location "East US"`
+
+``
 ## Installation
 To install all the componenets required using the scripts in the repo. You will need to alter the variables for your own environment.
 
