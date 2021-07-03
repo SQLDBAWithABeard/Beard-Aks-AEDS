@@ -4,8 +4,8 @@ Setting up a AKS cluster and adding a Azure Arc Enabled Data Services Direct Dat
 
 ## Pre Reqs
 If you need a VM, you can 
-- deploy the VM [deploy-vm.ps1](scripts/deploy-vm.ps1)
-- and then login and set up the VM [set up vm.ps1](scripts/set-up-vm.ps1)
+- deploy the VM [deploy-vm.ps1](Scripts/deploy-vm.ps1)
+- and then login and set up the VM [set up vm.ps1](Scripts/set-up-vm.ps1)
 
 You will need to have these installed - You can use the set up VM script on your own machine to install them.
 
@@ -37,7 +37,7 @@ or
 ## Installation
 To install all the componenets required using the scripts in the repo. You will need to alter the variables for your own environment.
 
-- Create AKS [create-aks.ps1](scripts/create-aks.ps1)
+- Create AKS [create-aks.ps1](Scripts/create-aks.ps1)
 - Deploy Log Analytics with bicep if you need it [Scripts/deploy-loganalytics.ps1](Scripts/deploy-loganalytics.ps1)
 - Deploy the data controller with bicep [Scripts/deploy-dc.ps1](Scripts/deploy-dc.ps1)  
 
@@ -51,7 +51,7 @@ azdata arc dc endpoint list
 - Use the Cluster Management Service URL to connect to the data controlled in ADS with the Azure Arc Extension installed  
   ![connecteddc.png](images/connecteddc.png)  
 
-Then you can deploy SQL Managed Instances with bicep using [scripts/deploy-mi.ps1](scripts/deploy-mi.ps1) 
+Then you can deploy SQL Managed Instances with bicep using [Scripts/deploy-mi.ps1](Scripts/deploy-mi.ps1) 
 
 ## Resources
 
