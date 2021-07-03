@@ -28,7 +28,9 @@ param serviceType string = 'LoadBalancer'
 param serviceProxyPort int = 30777
 param connectionMode string = 'direct'
 param logsRotationDays int = 7
+var logsRotationDaysString = string(logsRotationDays)
 param logsRotationSize int = 5000
+var logsRotationSizeString = string(logsRotationSize)
 param dataStorageClass string = 'default'
 param dataStorageSize string = '15Gi'
 param logsStorageClass string = 'default'
@@ -105,8 +107,8 @@ resource datacontroller 'Microsoft.AzureArcData/dataControllers@2021-06-01-previ
           controller: {
             displayName: dataControllerName
             enableBilling: 'True'
-            'logs.rotation.days': '${logsRotationDays}'
-            'logs.rotation.size': '${logsRotationSize}'
+            'logs.rotation.days': logsRotationDaysString //'${logsRotationDays}'
+            'logs.rotation.size': logsRotationSizeString //'${logsRotationSize}'
           }
         }
         storage: {
@@ -131,3 +133,5 @@ resource datacontroller 'Microsoft.AzureArcData/dataControllers@2021-06-01-previ
 }
 
 output customlocationvar string = customlocation
+output customlocationvar1 string = logsRotationDaysString
+output customlocationvar2 string = logsRotationSizeString
