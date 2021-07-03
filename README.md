@@ -15,7 +15,7 @@ You will need to have these installed - You can use the set up VM script on your
 To install all the componenets required using the scripts in the repo. You will need to alter the variables for your own environment.
 
 - Create AKS [create-aks.ps1](scripts/create-aks.ps1)
-- Deploy Log Analytics with bicep [Scripts/deploy-loganalytics.ps1](Scripts/deploy-loganalytics.ps1)
+- Deploy Log Analytics with bicep if you need it [Scripts/deploy-loganalytics.ps1](Scripts/deploy-loganalytics.ps1)
 - Deploy the data controller with bicep [Scripts/deploy-dc.ps1](Scripts/deploy-dc.ps1)
 - You can get the endpoints for the data controller
 ````
