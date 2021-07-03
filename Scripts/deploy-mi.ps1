@@ -1,7 +1,7 @@
 
 Set-Location D:\OneDrive\Documents\GitHub\Beard-Aks-AEDS\bicep\
 $benscreds = New-Object System.Management.Automation.PSCredential ((Get-Secret -Name beardmi-benadmin-user -AsPlainText), (Get-Secret -Name beardmi-benadmin-pwd))
-$resourceGroupName = 'beardarc2'
+$resourceGroupName = 'beardarc'
 
 $date = Get-Date -Format yyyyMMddHHmmsss
 $deploymentname = 'deploy_sqlmi_{0}_{1}' -f $ResourceGroupName, $date # name of the deployment seen in the activity log
@@ -9,9 +9,9 @@ $deploymentConfig = @{
     resourceGroupName              = $resourceGroupName  
     Name                           = $deploymentname
     TemplateFile                   = 'sql-mi.bicep' 
-    instancename                   = 'ben-aks2-free' # max 13 characters
-    dataControllerId               = 'beard-aks-cluster2-dc'
-    customLocation                 = 'beard-aks-cluster-location2'
+    instancename                   = 'ben-aks-eins' # max 13 characters
+    dataControllerId               = 'beard-aks-cluster-dc'
+    customLocation                 = 'beard-aks-cluster-location'
     adminUserName                  = $benscreds.UserName
     adminPassword                  = $benscreds.Password
     namespace                      = 'arc'
@@ -26,7 +26,7 @@ $deploymentConfig = @{
     dataLogsStorageClassName       = 'default'
     backupsStorageSize             = '15Gi'
     backupsStorageClassName        = 'default'
-    replicas                       = 3
+    replicas                       = 1
     tags                            = @{
         Important = 'This is controlled by Bicep'
         creator = 'The Beard'
@@ -35,4 +35,4 @@ $deploymentConfig = @{
     }
 }
 
-New-AzResourceGroupDeployment @deploymentConfig -WhatIf
+New-AzResourceGroupDeployment @deploymentConfig # -WhatIf
