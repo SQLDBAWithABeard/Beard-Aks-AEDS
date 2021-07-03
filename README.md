@@ -1,6 +1,6 @@
 # Beard-Aks-AEDS
 
-Setting up a AKS cluster and adding a Azure Arc Enabled Data Services Direct Data Controller using a jumpbox Azure VM
+Setting up a AKS cluster and adding a Azure Arc Enabled Data Services Direct Data Controller using a jumpbox Azure VM if required.
 
 If you need a VM, you can 
 - deploy the VM [deploy-vm.ps1](scripts/deploy-vm.ps1)
