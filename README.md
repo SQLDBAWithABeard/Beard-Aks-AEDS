@@ -2,21 +2,37 @@
 
 Setting up a AKS cluster and adding a Azure Arc Enabled Data Services Direct Data Controller using a jumpbox Azure VM if required.
 
+## Pre Reqs
 If you need a VM, you can 
 - deploy the VM [deploy-vm.ps1](scripts/deploy-vm.ps1)
 - and then login and set up the VM [set up vm.ps1](scripts/set-up-vm.ps1)
 
-You will need to have these installed - You can use the set up VM script on your own machine.
+You will need to have these installed - You can use the set up VM script on your own machine to install them.
 
 - Azure Cli 
 - kubectl 
 - Azdata
 
+You need to have created a service principal using  
+
+`az ad sp create-for-rbac --name <ServicePrincipalName> --role Contributor --scopes /subscriptions/{SubscriptionId}/resourceGroups/{resourcegroup}`
+
+I store and retrieve all my secrets using the Secrets Management module.
+
+`Install-Module SecretManagement`
+
+and set them with
+
+`Set-Secret -Name secretname -Value secretvalue`
+
+
+## Installation
 To install all the componenets required using the scripts in the repo. You will need to alter the variables for your own environment.
 
 - Create AKS [create-aks.ps1](scripts/create-aks.ps1)
 - Deploy Log Analytics with bicep if you need it [Scripts/deploy-loganalytics.ps1](Scripts/deploy-loganalytics.ps1)
-- Deploy the data controller with bicep [Scripts/deploy-dc.ps1](Scripts/deploy-dc.ps1)
+- Deploy the data controller with bicep [Scripts/deploy-dc.ps1](Scripts/deploy-dc.ps1)  
+
 - You can get the endpoints for the data controller
 ````
 azdata login
@@ -29,7 +45,11 @@ azdata arc dc endpoint list
 
 Then you can deploy SQL Managed Instances with bicep using [scripts/deploy-mi.ps1](scripts/deploy-mi.ps1) 
 
-and view the resources in the portal
+## Resources
+
+Once the deployment has finished you will still have to wait for the data controller to create the MI. I use [Lens](https://k8slens.dev/) to check the controller pod logs.
+
+You can view the resources in the portal
 
 ![portal](images/portalresources.png)  
   
