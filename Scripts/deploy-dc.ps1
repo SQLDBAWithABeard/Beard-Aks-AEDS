@@ -1,4 +1,4 @@
-Set-Location D:\OneDrive\Documents\GitHub\Beard-Aks-AEDS\bicep\ # yes use your own path here !!
+Set-Location G:\OneDrive\Documents\GitHub\Beard-Aks-AEDS\bicep\ # yes use your own path here !!
 $resourceGroupName = 'beardarc'
 $logAnalyticsResourceName = 'loggylytics' # name of the log analytics workspace
 $logAnalyticsResourceGroupName = 'beardarc' # resource group name that has the log analytics workspace in it in case it is a centralised one
@@ -23,6 +23,15 @@ $client_secret_cred = New-Object System.Management.Automation.PSCredential ('cli
 $uspClientId = "$($client_id_cred.GetNetworkCredential().Password)"
 $uspTenantId = "$($tenant_id_cred.GetNetworkCredential().Password)"
 
+<# 
+if doing demos in portal
+$workspace_id = New-Object System.Management.Automation.PSCredential ('workspace-id', (Get-Secret -Name workspace-id))
+$workspace_shared_key = New-Object System.Management.Automation.PSCredential ('workspace-shared-key', (Get-Secret -Name workspace-shared-key))
+$uspClientId | Set-Clipboard
+$$uspTenantId | Set-Clipboard
+$workspace_id.GetNetworkCredential().Password  | Set-Clipboard
+$workspace_shared_key.GetNetworkCredential().Password  | Set-Clipboard
+#>
 <# 
 # # if you dont store tenantid and clientid in secrets management module you can just put the string here 
 # You still need to have created a service principal using az ad sp create-for-rbac --name <ServicePrincipalName> --role Contributor --scopes /subscriptions/{SubscriptionId}/resourceGroups/{resourcegroup}
@@ -50,7 +59,7 @@ $deploymentConfig = @{
     logAnalyticsResourceName      = $logAnalyticsResourceName 
     logAnalyticsResourceGroupName = $logAnalyticsResourceGroupName 
     dockerImagePullPolicy         = 'Always'
-    dockerImageTag                = 'public-preview-may-2021'
+    dockerImageTag                = 'public-preview-jun-2021'
     dockerRegistry                = 'mcr.microsoft.com'
     dockerRepository              = 'arcdata'
     controllerPort                = 30080
