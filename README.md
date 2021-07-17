@@ -44,8 +44,8 @@ To install all the componenets required using the scripts in the repo. You will 
 
 - You can get the endpoints for the data controller
 ````
-azdata login
-azdata arc dc endpoint list
+az login
+az arcdata dc endpoint list --namespace arc
 ````
 ![endpointswithjustdatacontroller.png](images/endpointswithjustdatacontroller.png)  
 
@@ -71,7 +71,7 @@ Right now, I cannot get the SQL Managed Instance endpoints using Azure Data Stud
 Then you can use that IP and your admin username and password to connect. See below for more.
 
 
-You can connect to grafana and see the metrics for the instances using the Metrics Dashboard endpoint from `azdata arc dc endpoint list` Use the Data Controller username and password. Click on Dashboards on the left and then manage and choose the dashboard to look at. There are dashboards for 
+You can connect to grafana and see the metrics for the instances using the Metrics Dashboard endpoint from `az arcdata dc endpoint list` Use the Data Controller username and password. Click on Dashboards on the left and then manage and choose the dashboard to look at. There are dashboards for 
 
 - Host Node Metrics
 - Pods and Containers Metrics
@@ -91,7 +91,7 @@ Host Node Metrics
 Pods and Containers Metrics
 ![grafanapodsandcontainers](images/grafanapodsandcontainers.png)
 
-You can view and search the logs in kibana using the Log Search Dashboard endpoint from `azdata arc dc endpoint list` Use the Data Controller username and password. Click the menu top left and choose discover to see the logs and then you can query or add filters to search them.
+You can view and search the logs in kibana using the Log Search Dashboard endpoint from `az arcdata dc endpoint list` Use the Data Controller username and password. Click the menu top left and choose discover to see the logs and then you can query or add filters to search them.
 
 ![kibanalogs.png](images/kibanalogs.png)
 
