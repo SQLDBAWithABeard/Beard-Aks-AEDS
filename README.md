@@ -5,6 +5,7 @@ Setting up a AKS cluster and adding a Azure Arc Enabled Data Services Direct Dat
 ## Pre Reqs
 If you need a VM, you can 
 - deploy the VM [deploy-vm.ps1](Scripts/deploy-vm.ps1)
+- You will need to add an inbound and oputbound rule to your NSG for your IP Address
 - and then login and set up the VM [set up vm.ps1](Scripts/set-up-vm.ps1)
 
 You will need to have these installed - You can use the set up VM script on your own machine to install them.

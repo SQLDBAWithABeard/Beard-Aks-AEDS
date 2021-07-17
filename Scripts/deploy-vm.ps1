@@ -1,4 +1,4 @@
-Set-Location D:\OneDrive\Documents\GitHub\BeardLInux\bicep # yes use your own path here !!
+Set-Location G:\OneDrive\Documents\GitHub\BeardLInux\bicep # yes use your own path here !!
 
 $resourceGroupName = 'beardarc'
 
@@ -14,7 +14,7 @@ $admincredentials = New-Object System.Management.Automation.PSCredential ('usern
 
 
 $date = Get-Date -Format yyyyMMddHHmmsss
-$deploymentname = 'deploy_sqlmi_{0}_{1}' -f $ResourceGroupName, $date # name of the deployment seen in the activity log
+$deploymentname = 'deploy_VM_{0}_{1}' -f $ResourceGroupName, $date # name of the deployment seen in the activity log
 $deploymentConfig = @{
     resourceGroupName  = $resourceGroupName  
     Name               = $deploymentname
