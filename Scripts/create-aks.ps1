@@ -19,6 +19,7 @@ I use the SecretsManagement PowerShell module to store my secrets which can be i
 $location = 'eastus' # location of resource group
 $resourceGroup = 'beardarc' # name of the already created resource group
 $aksClusterName = 'beard-aks-cluster' # the name of the AKS Cluster
+$aksConnectedClusterName = 'beard-aks-connected-cluster' # the name of the connected AKS Cluster
 $clusterNodePoolSize = "Standard_DS4_v2" # The VM size for the AKS cluster node pool
 $customLocation  = 'beard-aks-cluster-location' # The name for the custom location
 
@@ -61,7 +62,10 @@ az extension update --name customlocation
 az extension update --name arcdata
 
 # onboard a connected kubernetes cluster to Azure
-az connectedk8s connect --name $aksClusterName  --resource-group $resourceGroup --location $location
+# https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-agent-architecture
+# https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/quickstart-connect-cluster?tabs=azure-cli
+az connectedk8s connect --name $aksConnectedClusterName  --resource-group $resourceGroup --location $location
+
 # check the onboarded clusters
 az connectedk8s list --resource-group $resourceGroup --output table
 
@@ -69,23 +73,23 @@ az connectedk8s list --resource-group $resourceGroup --output table
 kubectl get deployments,pods -n azure-arc
 
 # enable the required features
-az connectedk8s enable-features -n $aksClusterName -g $resourceGroup --features cluster-connect custom-locations
+az connectedk8s enable-features -n $aksConnectedClusterName -g $resourceGroup --features cluster-connect custom-locations
 
 # create the custom location extension
 az k8s-extension create --name $customLocation --extension-type microsoft.arcdataservices --cluster-type connectedClusters `
-    -c $aksClusterName -g $resourceGroup --scope cluster --release-namespace arc --config Microsoft.CustomLocation.ServiceAccount=sa-bootstrapper `
+    -c $aksConnectedClusterName -g $resourceGroup --scope cluster --release-namespace arc --config Microsoft.CustomLocation.ServiceAccount=sa-bootstrapper `
          --auto-upgrade false
 
 # now we have to wait for it to be ready. Run this command until the custom location is installed
-az k8s-extension show --name $customLocation --cluster-type connectedClusters -c $aksClusterName -g $resourceGroup  -o table
+az k8s-extension show --name $customLocation --cluster-type connectedClusters -c $aksConnectedClusterName -g $resourceGroup  -o table
 
 # check the arc namespace for the pods - now we will see the bootstrapper pod is available
 kubectl get pods -n arc
 
 # create the custom location
 az customlocation create -n $customLocation -g $resourceGroup --namespace arc `
-    --host-resource-id /subscriptions/$subscription/resourceGroups/$resourceGroup/providers/Microsoft.Kubernetes/connectedClusters/$aksClusterName `
-    --cluster-extension-ids /subscriptions/$subscription/resourceGroups/$resourceGroup/providers/Microsoft.Kubernetes/connectedClusters/$aksClusterName/providers/Microsoft.KubernetesConfiguration/extensions/$customLocation `
+    --host-resource-id /subscriptions/$subscription/resourceGroups/$resourceGroup/providers/Microsoft.Kubernetes/connectedClusters/$aksConnectedClusterName `
+    --cluster-extension-ids /subscriptions/$subscription/resourceGroups/$resourceGroup/providers/Microsoft.Kubernetes/connectedClusters/$aksConnectedClusterName/providers/Microsoft.KubernetesConfiguration/extensions/$customLocation `
     --location $location
 
 # list the custom location
