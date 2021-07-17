@@ -1,9 +1,9 @@
 
-Set-Location D:\OneDrive\Documents\GitHub\Beard-Aks-AEDS\bicep\ # yes use your own path here !!
+Set-Location G:\OneDrive\Documents\GitHub\Beard-Aks-AEDS\bicep\ # yes use your own path here !!
 
 
 $resourceGroupName = 'beardarc'
-$sqlMIName = 'ben-aks-eins' # max 13 characters - name of the instance
+$sqlMIName = 'ben-aks-las' # max 13 characters - name of the instance
 $dataControllerName = 'beard-aks-cluster-dc' # the name of the data controller deployed with deploy-dc.ps1
 $customLocationName = 'beard-aks-cluster-location'# the name of the custom location deployed with create-aks.ps1
 # I use the SecretsManagement PowerShell module to store my secrets which can be installed with `Install-Module SecretManagement`. I add secrets with `Set-Secret -Name nameofsecret -Secret secretvalue`.
