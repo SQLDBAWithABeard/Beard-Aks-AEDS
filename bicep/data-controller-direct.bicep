@@ -20,7 +20,7 @@ var logAnalyticsPrimaryKey = listKeys(logAnalyticsResourceId, '2020-10-01').prim
 var logAnalyticsWorkspaceId = reference(logAnalyticsResourceId,'2020-10-01').customerId
 
 param dockerImagePullPolicy string = 'Always'
-param dockerImageTag string = 'public-preview-april-2021'
+param dockerImageTag string = 'public-preview-jun-2021'
 param dockerRegistry string = 'mcr.microsoft.com'
 param dockerRepository string = 'arcdata'
 param controllerPort int = 30080
@@ -36,8 +36,9 @@ param dataStorageSize string = '15Gi'
 param logsStorageClass string = 'default'
 param logsStorageSize string = '15Gi'
 param namespace string = 'arc'
+param infrastructure string = 'azure' // Allowed values are alibaba, aws, azure, gpc, onpremises, other.
 
-resource datacontroller 'Microsoft.AzureArcData/dataControllers@2021-06-01-preview' = {
+resource datacontroller 'Microsoft.AzureArcData/dataControllers@2021-07-01-preview' = {
   name: dataControllerName
   location: resourceGroup().location
   extendedLocation: {
@@ -46,6 +47,7 @@ resource datacontroller 'Microsoft.AzureArcData/dataControllers@2021-06-01-previ
   }
   tags: tags
   properties: {
+    infrastructure: infrastructure
     basicLoginInformation: {
       username: dcUsername
       password: dcPassword
