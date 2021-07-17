@@ -24,6 +24,8 @@ param dataLogsStorageClassName string
 param backupsStorageSize string
 param backupsStorageClassName string
 param replicas int
+var vCoresLimit = vCoresMax * 2
+param memoryLimit string = '64Gi'
 
 resource sqlmi 'Microsoft.AzureArcData/sqlManagedInstances@2021-07-01-preview' = {
   name: instancename
@@ -33,12 +35,17 @@ resource sqlmi 'Microsoft.AzureArcData/sqlManagedInstances@2021-07-01-preview' =
     name: resourceId('microsoft.extendedlocation/customlocations', customLocation) 
   }
   tags: tags
+  sku: {
+    name: 'vCore'
+    tier: 'GeneralPurpose'
+  }
   properties: {
     admin: adminUserName
     basicLoginInformation: {
       username: adminUserName
       password: adminPassword
     }
+    licenseType: 'LicenseIncluded'
     k8sRaw: {
       spec: {
         dev: false
@@ -54,6 +61,10 @@ resource sqlmi 'Microsoft.AzureArcData/sqlManagedInstances@2021-07-01-preview' =
               requests: {
                 vcores: vCoresMax
                 memory: memoryMax
+              }
+              limits: {
+                vcores: vCoresLimit
+                memory: memoryLimit
               }
             }
           }
