@@ -25,7 +25,7 @@ param backupsStorageSize string
 param backupsStorageClassName string
 param replicas int
 
-resource sqlmi 'Microsoft.AzureArcData/sqlManagedInstances@2021-06-01-preview' = {
+resource sqlmi 'Microsoft.AzureArcData/sqlManagedInstances@2021-07-01-preview' = {
   name: instancename
   location: resourceGroup().location
   extendedLocation: {
