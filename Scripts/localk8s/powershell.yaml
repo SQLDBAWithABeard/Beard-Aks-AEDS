@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pwsh
+  labels:
+    role: myrole
+spec:
+  containers:
+    - name: powershellcontainer
+      image: mcr.microsoft.com/powershell
+      env:
+        - name: HOME
+          value: /tmp
+      command:
+      - pwsh
+      - -Command
+      - |
+         $Date = Get-Date -Format yyyyMMdd-HHmmsss
+         Write-Host "$Date - I am a script running in container"
