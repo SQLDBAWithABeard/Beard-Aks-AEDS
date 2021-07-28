@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: connectsql
+  name: runasqlscript
 spec:
   schedule: "*/600 * * * *"
   jobTemplate:
@@ -43,12 +43,14 @@ spec:
                  select Number
                   from Tally
                   where Number <= @RowsToCreate
+
+                SELECT COUNT(*) AS 'HowMany?','Whats Happening?' AS 'What Ben Says', GetDate() AS 'When' FROM dbo.Example
                 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Example]') AND type in (N'U'))
                 DROP TABLE [dbo].[Example];
 
                 SELECT 'Finished' 
                 "
-                $Server = '10.244.0.50'
+                $Server = '10.244.0.24'
 
                 $Date = Get-Date -Format yyyyMMdd-HHmmsss
                 Write-Host "$Date - I am importing dbatools"

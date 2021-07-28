@@ -1,9 +1,9 @@
 Set-Location G:\OneDrive\Documents\GitHub\Beard-Aks-AEDS\bicep\ # yes use your own path here !!
 $resourceGroupName = 'beardarc'
-$logAnalyticsResourceName = 'loggylytics' # name of the log analytics workspace
+$logAnalyticsResourceName = 'loggyben' # name of the log analytics workspace
 $logAnalyticsResourceGroupName = 'beardarc' # resource group name that has the log analytics workspace in it in case it is a centralised one
 $dataControllerName            = 'singlehypervclusterdc' # the name you want for the data controller
-$customLocationName            = 'singlehypervkubernetesclusterlocation' # the name for the custom location that you created in the the other script
+$customLocationName            = 'singlehypervclusterlocation' # the name for the custom location that you created in the the other script
 
 # I use the SecretsManagement PowerShell module to store my secrets which can be installed with `Install-Module SecretManagement`. I add secrets with `Set-Secret -Name nameofsecret -Secret secretvalue`.
 # You will need to change this for your own environment

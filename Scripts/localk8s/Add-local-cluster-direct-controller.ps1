@@ -13,8 +13,8 @@ I use the SecretsManagement PowerShell module to store my secrets which can be i
 $location = 'eastus' # location of resource group
 $resourceGroup = 'beardarc' # name of the already created resource group
 $ClusterName = 'singlehypervkubernetes' # the name of the AKS Cluster
-$ConnectedClusterName = 'singlehypervkubernetesconnectedcluster' # the name of the connected AKS Cluster
-$customLocation  = 'singlehypervkubernetesclusterlocation' # The name for the custom location
+$ConnectedClusterName = 'singlehypervcluster' # the name of the connected AKS Cluster
+$customLocation  = 'singlehypervclusterlocation' # The name for the custom location
 
 # I use the SecretsManagement PowerShell module to store my secrets which can be installed with `Install-Module SecretManagement`. I add secrets with `Set-Secret -Name nameofsecret -Secret secretvalue`.
 # You will need to change this for your own environment

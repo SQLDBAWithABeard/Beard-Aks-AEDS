@@ -17,7 +17,7 @@ sudo sed -i '/swap/s/^\(.*\)$/#\1/g' /etc/fstab
 
 #on both install nfs-common
 
-sudo apt install nfs-common
+sudo apt install nfs-common -y
 
 # Adding Kubernetes signing key as follows:
 
@@ -89,7 +89,7 @@ sudo apt install -y containerd.io
 # Configure containerd and start service
 sudo mkdir -p /etc/containerd
 sudo su -
-containerd config default  /etc/containerd/config.toml
+containerd config default > /etc/containerd/config.toml
 
 # restart containerd
 sudo systemctl restart containerd
@@ -121,9 +121,13 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 # and copy into local .kube/config file
 # the name that is given to the cluster needs to be added to the hosts file with IP for ARC enablement
 
+ kubectl cluster-info
+
+ kubectl get nodes
+
 # untaint master node to allow deployment
 
-kubectl taint node rob-virtual-machine  node-role.kubernetes.io/master:NoSchedule-
+kubectl taint node singlebeard node-role.kubernetes.io/master:NoSchedule-
 
 # Next, deploy a pod network to cluster:
 

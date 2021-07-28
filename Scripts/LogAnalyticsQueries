@@ -1,0 +1,3 @@
+sqlManagedInstances_logs_CL 
+| where Message startswith "Logon       Login "
+| sort by es_process_timestamp_t desc 

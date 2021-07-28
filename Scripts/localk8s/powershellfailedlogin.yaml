@@ -23,7 +23,7 @@ spec:
                 Write-Host "$Date - I am a script running in container"
         
                 $Query = "SELECT @@SERVERNAME"
-                $Server = '10.244.0.50'
+                $Server = '10.244.0.24'
 
                 $Date = Get-Date -Format yyyyMMdd-HHmmsss
                 Write-Host "$Date - I am importing dbatools"
@@ -32,7 +32,8 @@ spec:
                 $Date = Get-Date -Format yyyyMMdd-HHmmsss
                 Write-Host "$Date - I will try to connect to the sql instance $server"
                 $secStringPassword = ConvertTo-SecureString 'wrongpassword' -AsPlainText -Force
-                [pscredential]$sqllogin = New-Object System.Management.Automation.PSCredential ('TryingToStealYourData', $secStringPassword)
+                $Username = 'TryingToStealYourData-{0}' -f (Get-Random -Minimum 1000 -Maximum 10000)
+                [pscredential]$sqllogin = New-Object System.Management.Automation.PSCredential ($Username, $secStringPassword)
                 
                 $Results = Invoke-DBaQuery -SQlINstance $server -SqlCredential $$sqllogin -Query $Query -Verbose
                 $Date = Get-Date -Format yyyyMMdd-HHmmsss

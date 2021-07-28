@@ -5,7 +5,7 @@ Set-Location G:\OneDrive\Documents\GitHub\Beard-Aks-AEDS\bicep\ # yes use your o
 $resourceGroupName = 'beardarc'
 $sqlMIName = 'hyperben' # max 13 characters - name of the instance
 $dataControllerName = 'singlehypervclusterdc' # the name of the data controller deployed with deploy-dc.ps1
-$customLocationName = 'singlehypervkubernetesclusterlocation' # the name of the custom location deployed with create-aks.ps1
+$customLocationName = 'singlehypervclusterlocation' # the name of the custom location deployed with create-aks.ps1
 # I use the SecretsManagement PowerShell module to store my secrets which can be installed with `Install-Module SecretManagement`. I add secrets with `Set-Secret -Name nameofsecret -Secret secretvalue`.
 # You will need to change this for your own environment
 $admincredentials = New-Object System.Management.Automation.PSCredential ((Get-Secret -Name beardmi-benadmin-user -AsPlainText), (Get-Secret -Name beardmi-benadmin-pwd))
