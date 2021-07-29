@@ -66,7 +66,7 @@ az connectedk8s enable-features -n $ConnectedClusterName -g $resourceGroup --fea
 # create the custom location extension
 az k8s-extension create --name $customLocation --extension-type microsoft.arcdataservices --cluster-type connectedClusters `
     -c $ConnectedClusterName -g $resourceGroup --scope cluster --release-namespace arc --config Microsoft.CustomLocation.ServiceAccount=sa-bootstrapper `
-         --auto-upgrade false --debug
+         --auto-upgrade false # --debug
 
 # now we have to wait for it to be ready. Run this command until the custom location is installed
 # errors can be found here 
