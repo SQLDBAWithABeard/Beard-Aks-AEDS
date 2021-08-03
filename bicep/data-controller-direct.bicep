@@ -38,7 +38,7 @@ param logsStorageSize string = '15Gi'
 param namespace string = 'arc'
 param infrastructure string = 'azure' // Allowed values are alibaba, aws, azure, gpc, onpremises, other.
 
-resource datacontroller 'Microsoft.AzureArcData/dataControllers@2021-07-01-preview' = {
+resource datacontroller 'Microsoft.AzureArcData/dataControllers@2021-08-01' = {
   name: dataControllerName
   location: resourceGroup().location
   extendedLocation: {
@@ -63,7 +63,7 @@ resource datacontroller 'Microsoft.AzureArcData/dataControllers@2021-07-01-previ
       primaryKey: logAnalyticsPrimaryKey
     }
     k8sRaw: {
-      apiVersion: 'arcdata.microsoft.com/v1alpha1'
+      apiVersion: 'arcdata.microsoft.com/v1'
       kind: 'datacontroller'
       spec: {
         credentials: {
@@ -90,11 +90,11 @@ resource datacontroller 'Microsoft.AzureArcData/dataControllers@2021-07-01-previ
             port: controllerPort
             serviceType: serviceType
           }
-          {
-            name: 'serviceProxy'
-            port: serviceProxyPort
-            serviceType: serviceType
-          }
+         // {
+         //   name: 'serviceProxy'
+         //   port: serviceProxyPort
+         //   serviceType: serviceType
+         // }
         ]
         settings: {
           ElasticSearch: {
