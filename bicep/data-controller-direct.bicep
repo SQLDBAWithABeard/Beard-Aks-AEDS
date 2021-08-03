@@ -20,7 +20,7 @@ var logAnalyticsPrimaryKey = listKeys(logAnalyticsResourceId, '2020-10-01').prim
 var logAnalyticsWorkspaceId = reference(logAnalyticsResourceId,'2020-10-01').customerId
 
 param dockerImagePullPolicy string = 'Always'
-param dockerImageTag string = 'public-preview-jun-2021'
+param dockerImageTag string = 'v1.0.0_2021-07-30'
 param dockerRegistry string = 'mcr.microsoft.com'
 param dockerRepository string = 'arcdata'
 param controllerPort int = 30080
