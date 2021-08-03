@@ -1,6 +1,6 @@
 Set-Location G:\OneDrive\Documents\GitHub\Beard-Aks-AEDS\bicep\ # yes use your own path here !!
 $resourceGroupName = 'beardarc'
-$logAnalyticsResourceName = 'loggylytics' # name of the log analytics workspace
+$logAnalyticsResourceName = 'loggyben' # name of the log analytics workspace
 $logAnalyticsResourceGroupName = 'beardarc' # resource group name that has the log analytics workspace in it in case it is a centralised one
 $dataControllerName            = 'beard-aks-cluster-dc' # the name you want for the data controller
 $customLocationName            = 'beard-aks-cluster-location' # the name for the custom location that you created in the Create AKS script
@@ -59,7 +59,7 @@ $deploymentConfig = @{
     logAnalyticsResourceName      = $logAnalyticsResourceName 
     logAnalyticsResourceGroupName = $logAnalyticsResourceGroupName 
     dockerImagePullPolicy         = 'Always'
-    dockerImageTag                = 'public-preview-jun-2021'
+    dockerImageTag                = 'v1.0.0_2021-07-30'
     dockerRegistry                = 'mcr.microsoft.com'
     dockerRepository              = 'arcdata'
     controllerPort                = 30080
