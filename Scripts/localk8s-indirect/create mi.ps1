@@ -1,3 +1,10 @@
+# connect to correct cluster
+
+# kubectl config use-context kubernetes-admin@kubernetes 
+
+kubectl cluster-info
+kubectl config current-context
+
 $benscreds = New-Object System.Management.Automation.PSCredential ((Get-Secret -Name beardmi-benadmin-user -AsPlainText), (Get-Secret -Name beardmi-benadmin-pwd))
 $ENV:AZDATA_USERNAME="$($benscreds.UserName)"
 $ENV:AZDATA_PASSWORD="$($benscreds.GetNetworkCredential().Password)"
@@ -11,7 +18,7 @@ azdata arc sql mi create -n $MIName  -scd bens-local-storage -scl bens-local-sto
 
 azdata arc sql endpoint list -n $MIName
 
-$SqlInstance = '192.168.2.63,30040' # Audience please help Rob - He WILL forget to change this
+$SqlInstance = '192.168.2.63,30005' # Audience please help Rob - He WILL forget to change this
 
 $sql = Connect-DbaInstance -SqlInstance $SqlInstance -SqlCredential $benscreds
 
@@ -60,7 +67,7 @@ az sql mi-arc create `
 
 az sql mi-arc endpoint list -n $3nodebustierdevname --k8s-namespace $env:namespace --use-k8s
 
-$SqlInstance = '192.168.2.63,31395' # Audience please help Rob - He WILL forget to change this
+$SqlInstance = '192.168.2.63,32443' # Audience please help Rob - He WILL forget to change this
  
 $sql = Connect-DbaInstance -SqlInstance $SqlInstance -SqlCredential $benscreds
 
