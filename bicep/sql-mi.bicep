@@ -13,8 +13,8 @@ param namespace string
   'NodePort'
 ])
 param serviceType string
-param vCoresMax int
-param memoryMax string
+param cpuRequest string
+param memoryRequest string
 param dataStorageSize string
 param dataStorageClassName string
 param logsStorageSize string
@@ -24,20 +24,27 @@ param dataLogsStorageClassName string
 param backupsStorageSize string
 param backupsStorageClassName string
 param replicas int
-var vCoresLimit = vCoresMax * 2
+param cpuLimit string 
 param memoryLimit string = '64Gi'
+@allowed([
+  'GeneralPurpose'
+  'BusinessCritical'
+])
+param tier string = 'GeneralPurpose'
+param licenseType string = 'LicenseIncluded'
+param isDev bool = false
 
-resource sqlmi 'Microsoft.AzureArcData/sqlManagedInstances@2021-07-01-preview' = {
+resource sqlmi 'Microsoft.AzureArcData/sqlManagedInstances@2021-08-01' = {
   name: instancename
   location: resourceGroup().location
   extendedLocation: {
     type: 'CustomLocation'
-    name: resourceId('microsoft.extendedlocation/customlocations', customLocation) 
+    name: resourceId('microsoft.extendedlocation/customlocations', customLocation)
   }
   tags: tags
   sku: {
     name: 'vCore'
-    tier: 'GeneralPurpose'
+    tier: tier
   }
   properties: {
     admin: adminUserName
@@ -45,10 +52,10 @@ resource sqlmi 'Microsoft.AzureArcData/sqlManagedInstances@2021-07-01-preview' =
       username: adminUserName
       password: adminPassword
     }
-    licenseType: 'LicenseIncluded'
+    licenseType: licenseType
     k8sRaw: {
       spec: {
-        dev: false
+        dev: isDev
         services: {
           primary: {
             type: serviceType
@@ -59,11 +66,11 @@ resource sqlmi 'Microsoft.AzureArcData/sqlManagedInstances@2021-07-01-preview' =
           default: {
             resources: {
               requests: {
-                vcores: vCoresMax
-                memory: memoryMax
+                cpu: cpuRequest
+                memory: memoryRequest
               }
               limits: {
-                vcores: vCoresLimit
+                cpu: cpuLimit
                 memory: memoryLimit
               }
             }

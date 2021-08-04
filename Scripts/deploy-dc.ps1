@@ -28,7 +28,7 @@ if doing demos in portal
 $workspace_id = New-Object System.Management.Automation.PSCredential ('workspace-id', (Get-Secret -Name workspace-id))
 $workspace_shared_key = New-Object System.Management.Automation.PSCredential ('workspace-shared-key', (Get-Secret -Name workspace-shared-key))
 $uspClientId | Set-Clipboard
-$$uspTenantId | Set-Clipboard
+$uspTenantId | Set-Clipboard
 $workspace_id.GetNetworkCredential().Password  | Set-Clipboard
 $workspace_shared_key.GetNetworkCredential().Password  | Set-Clipboard
 #>
