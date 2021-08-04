@@ -18,10 +18,10 @@ I use the SecretsManagement PowerShell module to store my secrets which can be i
 #>
 $location = 'eastus' # location of resource group
 $resourceGroup = 'beardarc' # name of the already created resource group
-$aksClusterName = 'beard-aks-cluster' # the name of the AKS Cluster
-$aksConnectedClusterName = 'beard-aks-connected-cluster' # the name of the connected AKS Cluster
+$aksClusterName = 'ben-aks-cluster' # the name of the AKS Cluster
+$aksConnectedClusterName = 'ben-aks-connected-cluster' # the name of the connected AKS Cluster
 $clusterNodePoolSize = "Standard_DS4_v2" # The VM size for the AKS cluster node pool
-$customLocation  = 'beard-aks-cluster-location' # The name for the custom location
+$customLocation  = 'ben-aks-cluster-location' # The name for the custom location
 
 # I use the SecretsManagement PowerShell module to store my secrets which can be installed with `Install-Module SecretManagement`. I add secrets with `Set-Secret -Name nameofsecret -Secret secretvalue`.
 # You will need to change this for your own environment
