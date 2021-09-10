@@ -11,14 +11,14 @@ $ENV:AZDATA_PASSWORD="$($benscreds.GetNetworkCredential().Password)"
 $subscription_id = New-Object System.Management.Automation.PSCredential ('subscription-id', (Get-Secret -Name subscription-id))
 $ENV:SUBSCRIPTION = "$($subscription_id.GetNetworkCredential().Password)"
 $ENV:ACCEPT_EULA = "Y"
-$env:namespace = 'arcaz'
-$MIName = 'bennew'
+$env:namespace = 'arc'
+$MIName = 'louis-nuc'
 
 azdata arc sql mi create -n $MIName  -scd bens-local-storage -scl bens-local-storage -cr "2" -cl "4" -mr "6Gi" -ml "8Gi"
 
 azdata arc sql endpoint list -n $MIName
 
-$SqlInstance = '192.168.2.63,30005' # Audience please help Rob - He WILL forget to change this
+$SqlInstance = '192.168.2.61,32015' # Audience please help Rob - He WILL forget to change this
 
 $sql = Connect-DbaInstance -SqlInstance $SqlInstance -SqlCredential $benscreds
 

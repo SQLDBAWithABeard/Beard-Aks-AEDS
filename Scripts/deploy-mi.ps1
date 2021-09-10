@@ -3,8 +3,8 @@ Set-Location G:\OneDrive\Documents\GitHub\Beard-Aks-AEDS\bicep\ # yes use your o
 
 
 $resourceGroupName = 'beardarc'
-$sqlMIName = 'ben-dublin' # max 13 characters - name of the instance
-$dataControllerName = 'ben-aks-dc' # the name of the data controller deployed with deploy-dc.ps1
+$sqlMIName = 'ben-aks-mi' # max 13 characters - name of the instance
+$dataControllerName = 'ben-aks-cluster-dc' # the name of the data controller deployed with deploy-dc.ps1
 $customLocationName = 'ben-aks-cluster-location'# the name of the custom location deployed with create-aks.ps1
 # I use the SecretsManagement PowerShell module to store my secrets which can be installed with `Install-Module SecretManagement`. I add secrets with `Set-Secret -Name nameofsecret -Secret secretvalue`.
 # You will need to change this for your own environment
@@ -28,7 +28,7 @@ $deploymentConfig = @{
     adminPassword            = $admincredentials.Password
     namespace                = 'arc'
     serviceType              = 'LoadBalancer'
-    cpuRequest               = '5'  # Yes its a string dont hate me vCores settings for instance
+    cpuRequest               = '2'  # Yes its a string dont hate me vCores settings for instance
     cpuLimit                 = '8'  # Yes its a string dont hate me vCores settings for instance
     memoryRequest            = '16Gi' # Yes its a string dont hate me Memory settings for instance
     memoryLimit              = '32Gi' # Yes its a string dont hate me Memory settings for instance

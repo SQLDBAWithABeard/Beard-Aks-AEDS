@@ -83,3 +83,6 @@ $deploymentConfig = @{
 
 New-AzResourceGroupDeployment @deploymentConfig # -WhatIf  # uncomment what if to see "what if" !!
 
+az arcdata dc endpoint list --k8s-namespace arc --use-k8s
+az arcdata dc config show --k8s-namespace arc --use-k8s
+az arcdata dc status show --k8s-namespace arc --use-k8s
