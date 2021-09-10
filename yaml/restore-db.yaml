@@ -1,0 +1,13 @@
+apiVersion: tasks.sql.arcdata.microsoft.com/v1beta1
+kind: SqlManagedInstanceRestoreTask
+metadata:
+  name: sql01-restore-20210707
+  namespace: arc
+spec:
+  source:
+    name: ben-aks-mi
+    database: BensDatabaseOfWonder
+  restorePoint: "2021-09-10T09:00:00Z"
+  destination:
+    name: ben-aks-mi
+    database: BensDatabaseOfWonder-Restored

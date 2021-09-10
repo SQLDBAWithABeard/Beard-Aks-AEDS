@@ -1,0 +1,99 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    management.azure.com/apiVersion: "2021-08-01"
+    management.azure.com/correlationId: 1fb323f6-1a35-43f8-a707-1d62f8ee7e99
+    management.azure.com/customLocation: /subscriptions/6d8f994c-9051-4cef-ba61-528bab27d213/resourceGroups/beardarc/providers/microsoft.extendedlocation/customlocations/beard-nuc-cluster-location
+    management.azure.com/location: eastus
+    management.azure.com/operationId: 92b97e7a-b124-4b77-bddf-16169e9c54c1
+    management.azure.com/resourceId: /subscriptions/6d8f994c-9051-4cef-ba61-528bab27d213/resourceGroups/beardarc/providers/Microsoft.AzureArcData/dataControllers/beard-nuc-cluster-dc
+    management.azure.com/tenantId: add02cc8-7eaf-4746-902a-53d0ceeff326
+    traceparent: 00-4c80d21b5575264b86a959f7adb66caf-0a4f75f17927e242-01
+  creationTimestamp: "2021-08-04T10:20:40Z"
+  labels:
+    ARC_NAMESPACE: arc
+    app: controller
+    plane: control
+    role: controller
+  managedFields:
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .: {}
+          f:management.azure.com/apiVersion: {}
+          f:management.azure.com/correlationId: {}
+          f:management.azure.com/customLocation: {}
+          f:management.azure.com/location: {}
+          f:management.azure.com/operationId: {}
+          f:management.azure.com/resourceId: {}
+          f:management.azure.com/tenantId: {}
+          f:traceparent: {}
+        f:labels:
+          .: {}
+          f:ARC_NAMESPACE: {}
+          f:app: {}
+          f:plane: {}
+          f:role: {}
+        f:ownerReferences:
+          .: {}
+          k:{"uid":"9c1677b2-ff95-41b6-83ab-4f89cdb1cfdb"}:
+            .: {}
+            f:apiVersion: {}
+            f:kind: {}
+            f:name: {}
+            f:uid: {}
+      f:spec:
+        f:externalTrafficPolicy: {}
+        f:ports:
+          .: {}
+          k:{"port":8443,"protocol":"TCP"}:
+            .: {}
+            f:name: {}
+            f:nodePort: {}
+            f:port: {}
+            f:protocol: {}
+            f:targetPort: {}
+        f:selector:
+          .: {}
+          f:ARC_NAMESPACE: {}
+          f:app: {}
+          f:plane: {}
+          f:role: {}
+        f:sessionAffinity: {}
+        f:type: {}
+    manager: bootstrapper
+    operation: Update
+    time: "2021-08-04T10:20:40Z"
+  name: controller-svc-external
+  namespace: arc
+  ownerReferences:
+  - apiVersion: v1
+    kind: DataController
+    name: beard-nuc-cluster-dc
+    uid: 9c1677b2-ff95-41b6-83ab-4f89cdb1cfdb
+  resourceVersion: "4773148"
+  uid: c34809a4-cf08-4bb1-ab2f-981dccfdfa04
+spec:
+  clusterIP: 10.102.110.190
+  clusterIPs:
+  - 10.102.110.190
+  externalTrafficPolicy: Cluster
+  ports:
+  - name: port-2
+    nodePort: 30088
+    port: 8443
+    protocol: TCP
+    targetPort: 8443
+  selector:
+    ARC_NAMESPACE: arc
+    app: controller
+    plane: control
+    role: controller
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
+
