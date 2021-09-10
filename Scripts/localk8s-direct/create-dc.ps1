@@ -75,7 +75,7 @@ Set-Location G:\OneDrive\Documents\GitHub\Beard-Aks-AEDS\bicep\ # yes use your o
 $resourceGroupName = 'beardarc'
 $logAnalyticsResourceName = 'loggyben' # name of the log analytics workspace
 $logAnalyticsResourceGroupName = 'beardarc' # resource group name that has the log analytics workspace in it in case it is a centralised one
-$dataControllerName            = 'beard-nuc-cluster-dc' # the name you want for the data controller
+$dataControllerName            = 'beard-nuc-dc' # the name you want for the data controller
 
 # I use the SecretsManagement PowerShell module to store my secrets which can be installed with `Install-Module SecretManagement`. I add secrets with `Set-Secret -Name nameofsecret -Secret secretvalue`.
 # You will need to change this for your own environment

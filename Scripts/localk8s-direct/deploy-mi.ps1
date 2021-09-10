@@ -3,7 +3,7 @@ Set-Location G:\OneDrive\Documents\GitHub\Beard-Aks-AEDS\bicep\ # yes use your o
 
 
 $resourceGroupName = 'beardarc'
-$sqlMIName = 'bennuc' # max 13 characters - name of the instance
+$sqlMIName = 'louis-nuc' # max 13 characters - name of the instance
 $dataControllerName = 'beard-nuc-cluster-dc' # the name of the data controller deployed with deploy-dc.ps1
 $customLocationName = 'beard-nuc-cluster-location' # the name of the custom location deployed with create-aks.ps1
 # I use the SecretsManagement PowerShell module to store my secrets which can be installed with `Install-Module SecretManagement`. I add secrets with `Set-Secret -Name nameofsecret -Secret secretvalue`.
@@ -60,11 +60,13 @@ az sql mi-arc show -k arc --use-k8s -n $sqlMIName
 az sql mi-arc endpoint list -k arc --use-k8s -n $sqlMIName
 
 $sqlinstance = '192.168.2.63,30693'
+$sqlinstance = '192.168.2.63,32177'
 
-$sql = Connect-DbaInstance -SqlInstance $SqlInstance -SqlCredential $benscreds
+$sql = Connect-DbaInstance -SqlInstance $SqlInstance -SqlCredential $admincredentials
 
 $PSDefaultParameterValues = @{
     "*dba*:SqlInstance" = $sql 
 }
+
 Get-DbaAvailabilityGroup
 Get-DbaAgListener
