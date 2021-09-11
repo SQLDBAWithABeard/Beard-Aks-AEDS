@@ -1,7 +1,7 @@
 # on aks - run deploy-mi first !
 
 #region get sql mi
-$sqlmi = 'ben-aks-mi' # make sure it is the same name Rob to avoid embarrassment!
+$sqlmi = 'ben-eks-mi' # make sure it is the same name Rob to avoid embarrassment!
 
 # I use the SecretsManagement PowerShell module to store my secrets which can be installed with `Install-Module SecretManagement`. I add secrets with `Set-Secret -Name nameofsecret -Secret secretvalue`.
 # You will need to change this for your own environment
