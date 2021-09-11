@@ -2,3 +2,4 @@ Notebooks/Robs-LogAnalytics.ipynb
 Scripts/localk8s-indirect/control.json
 template/crd.json
 template/spec.json
+uswest2keypair.pem
