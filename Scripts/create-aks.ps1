@@ -81,6 +81,12 @@ az k8s-extension create --name $customLocation --extension-type microsoft.arcdat
          --auto-upgrade false
 
 # now we have to wait for it to be ready. Run this command until the custom location is installed
+$customlocationcheck = az k8s-extension show --name $customLocation --cluster-type connectedClusters -c $aksConnectedClusterName -g $resourceGroup  -o table
+while($customlocationcheck -match 'Pending'){
+    Write-Output "Waiting for location to be installed"
+    Start-Sleep -Seconds 10
+    $customlocationcheck = az k8s-extension show --name $customLocation --cluster-type connectedClusters -c $aksConnectedClusterName -g $resourceGroup  -o table
+}
 az k8s-extension show --name $customLocation --cluster-type connectedClusters -c $aksConnectedClusterName -g $resourceGroup  -o table
 
 # check the arc namespace for the pods - now we will see the bootstrapper pod is available
