@@ -1,7 +1,15 @@
 # on aks - run deploy-mi first !
 
+#region choose kubectl context
+kubectl config use-context ben-aks-cluster
+kubectl config use-context iam-root-account@ben-eks-cluster.us-west-2.eksctl.io
+kubectl config use-context kubernetes-admin@kubernetes
+kubectl cluster-info
+kubectl config current-context
+#endregion
+
 #region get sql mi
-$sqlmi = 'ben-eks-mi' # make sure it is the same name Rob to avoid embarrassment!
+$sqlmi = 'ben-nuc-mi' # make sure it is the same name Rob to avoid embarrassment!
 
 # I use the SecretsManagement PowerShell module to store my secrets which can be installed with `Install-Module SecretManagement`. I add secrets with `Set-Secret -Name nameofsecret -Secret secretvalue`.
 # You will need to change this for your own environment
