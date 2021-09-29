@@ -13,7 +13,7 @@ $ENV:AZDATA_PASSWORD="$($benscreds.GetNetworkCredential().Password)"
 $subscription_id = New-Object System.Management.Automation.PSCredential ('subscription-id', (Get-Secret -Name subscription-id))
 $ENV:SUBSCRIPTION = "$($subscription_id.GetNetworkCredential().Password)"
 $ENV:ACCEPT_EULA = "Y"
-$env:namespace = 'arcaz'
+$env:namespace = 'arc'
 $location = 'eastus' # location of resource group
 $resourceGroup = 'beardarc' # name of the already created resource group
 
