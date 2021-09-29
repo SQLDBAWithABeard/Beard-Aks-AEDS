@@ -2,8 +2,8 @@ Set-Location G:\OneDrive\Documents\GitHub\Beard-Aks-AEDS\bicep\ # yes use your o
 $resourceGroupName = 'beardarc'
 $logAnalyticsResourceName = 'loggyben' # name of the log analytics workspace
 $logAnalyticsResourceGroupName = 'beardarc' # resource group name that has the log analytics workspace in it in case it is a centralised one
-$dataControllerName            = 'beard-aks-cluster-dc' # the name you want for the data controller
-$customLocationName            = 'beard-aks-cluster-location' # the name for the custom location that you created in the Create AKS script
+$dataControllerName            = 'ben-aks-cluster-dc' # the name you want for the data controller
+$customLocationName            = 'ben-aks-cluster-location' # the name for the custom location that you created in the Create AKS script
 
 # I use the SecretsManagement PowerShell module to store my secrets which can be installed with `Install-Module SecretManagement`. I add secrets with `Set-Secret -Name nameofsecret -Secret secretvalue`.
 # You will need to change this for your own environment
