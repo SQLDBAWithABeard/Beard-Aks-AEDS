@@ -3,9 +3,16 @@
 eksctl version 
 
 #https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-windows.html#
+# msiexec.exe /i https://awscli.amazonaws.com/AWSCLIV2.msi
+# $env:Path = $env:Path + ';C:\Program Files\Amazon\AWSCLIV2'
 aws --version 
-aws configure 
+$ENV:AWS_ACCESS_KEY_ID = Get-Secret -Name aws-access-key -AsPlainText
+$ENV:AWS_SECRET_ACCESS_KEY  = Get-Secret -Name aws-secret-access-key -AsPlainText
+aws configure --region us-west-2
+
 aws ec2 create-key-pair --region us-west-2 --key-name uswest2keypair --key-name uswest2keypair  --output text > uswest2keypair.pem
+# aws ec2 describe-key-pairs --key-name uswest2keypair
+# aws ec2 delete-key-pair --key-name uswest2keypair
 # make sure file is LF and not CRLF and starts -----BEGIN RSA PRIVATE KEY----- ends -----END RSA PRIVATE KEY----- and then new line
 # to get punlic key - ssh-keygen -y -f uswest2keypair.pem
 
@@ -14,7 +21,7 @@ $clustername = 'ben-eks-cluster'
 $region = 'us-west-2'
 $publickey = 'uswest2keypair'
 
-eksctl create cluster -f eks.yaml
+eksctl create cluster -f Scripts\eks\eks.yaml
 
 $location = 'eastus' # location of resource group
 $resourceGroup = 'beardarc' # name of the already created resource group
@@ -44,8 +51,9 @@ $ENV:AZDATA_PASSWORD="$($admincredentials.GetNetworkCredential().Password)"
 
 # if it has gone screwy you can update it with aws eks update-kubeconfig --name  ben-eks-cluster
 # eksctl utils write-kubeconfig --cluster=<name> [--kubeconfig=<path>][--set-kubeconfig-context=<bool>]
+# eksctl utils write-kubeconfig --cluster=ben-eks-cluster --kubeconfig=C:\Users\mrrob\.kube\config --set-kubeconfig-context=true
 
-kubectl config use-context arn:aws:eks:us-west-2:933732381823:cluster/ben-eks-cluster
+kubectl config use-context iam-root-account@ben-eks-cluster.us-west-2.eksctl.io
 
 kubectl cluster-info
 kubectl config current-context
@@ -66,7 +74,7 @@ az extension update --name arcdata
 # onboard a connected kubernetes cluster to Azure
 # https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-agent-architecture
 # https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/quickstart-connect-cluster?tabs=azure-cli
-az connectedk8s connect --name $eksConnectedClusterName  --resource-group $resourceGroup --location $location
+az connectedk8s connect --name-/+//// $eksConnectedClusterName  --resource-group $resourceGroup --location $location
 
 # check the onboarded clusters
 az connectedk8s list --resource-group $resourceGroup --output table
@@ -83,7 +91,15 @@ az k8s-extension create --name $customLocation --extension-type microsoft.arcdat
          --auto-upgrade false
 
 # now we have to wait for it to be ready. Run this command until the custom location is installed
+
+$customlocationcheck = az k8s-extension show --name $customLocation --cluster-type connectedClusters -c $eksConnectedClusterName -g $resourceGroup  -o table
+while($customlocationcheck -match 'Pending'){
+    Write-Output "Waiting for location to be installed"
+    Start-Sleep -Seconds 10
+    $customlocationcheck = az k8s-extension show --name $customLocation --cluster-type connectedClusters -c $eksConnectedClusterName -g $resourceGroup  -o table
+}
 az k8s-extension show --name $customLocation --cluster-type connectedClusters -c $eksConnectedClusterName -g $resourceGroup  -o table
+
 
 # check the arc namespace for the pods - now we will see the bootstrapper pod is available
 kubectl get pods -n arc
