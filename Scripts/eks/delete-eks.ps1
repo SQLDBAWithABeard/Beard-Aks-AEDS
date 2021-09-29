@@ -1,0 +1,1 @@
+eksctl delete cluster -f Scripts\eks\eks.yaml
