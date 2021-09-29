@@ -24,7 +24,7 @@ spec:
                 Write-Host "$Date - I am a script running in container"
         
                 $Query = "SELECT @@SERVERNAME"
-                $Server = 'ben-nuc-mi-external-svc'
+                $Server = 'ben-eks-mi-external-svc'
 
                 $Date = Get-Date -Format yyyyMMdd-HHmmsss
                 Write-Host "$Date - I am importing dbatools"

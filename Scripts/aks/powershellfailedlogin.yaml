@@ -4,7 +4,7 @@ metadata:
   name: connectsqlfailuresbennuc
   namespace: arc
 spec:
-  schedule: "*/21 * * * *"
+  schedule: "*/15 * * * *"
   jobTemplate:
     spec:
       activeDeadlineSeconds: 1200
@@ -24,7 +24,7 @@ spec:
                 Write-Host "$Date - I am a script running in container"
         
                 $Query = "SELECT @@SERVERNAME"
-                $Server = 'ben-nuc-mi-external-svc'
+                $Server = 'ben-aks-mi-external-svc'
 
                 $Date = Get-Date -Format yyyyMMdd-HHmmsss
                 Write-Host "$Date - I am importing dbatools"

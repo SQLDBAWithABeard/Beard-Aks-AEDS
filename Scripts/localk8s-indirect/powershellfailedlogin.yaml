@@ -1,10 +1,9 @@
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: connectsqlfailuresbennuc
-  namespace: arc
+  name: connectsqlfailures
 spec:
-  schedule: "*/21 * * * *"
+  schedule: "*/16 * * * *"
   jobTemplate:
     spec:
       activeDeadlineSeconds: 1200
@@ -24,7 +23,7 @@ spec:
                 Write-Host "$Date - I am a script running in container"
         
                 $Query = "SELECT @@SERVERNAME"
-                $Server = 'ben-nuc-mi-external-svc'
+                $Server = '10.99.125.60'
 
                 $Date = Get-Date -Format yyyyMMdd-HHmmsss
                 Write-Host "$Date - I am importing dbatools"
@@ -33,10 +32,10 @@ spec:
                 $Date = Get-Date -Format yyyyMMdd-HHmmsss
                 Write-Host "$Date - I will try to connect to the sql instance $server"
                 $secStringPassword = ConvertTo-SecureString 'wrongpassword' -AsPlainText -Force
-                $Username = 'Ben-IamTryingToStealYourData-{0}' -f (Get-Random -Minimum 1000 -Maximum 10000)
+                $Username = 'TryingToStealYourData-{0}' -f (Get-Random -Minimum 1000 -Maximum 10000)
                 [pscredential]$sqllogin = New-Object System.Management.Automation.PSCredential ($Username, $secStringPassword)
                 
-                $Results = Invoke-DBaQuery -SQlINstance $server -SqlCredential $sqllogin -Query $Query -Verbose
+                $Results = Invoke-DBaQuery -SQlINstance $server -SqlCredential $$sqllogin -Query $Query -Verbose
                 $Date = Get-Date -Format yyyyMMdd-HHmmsss
                 $Message =  "{0}- I got {1}" -f $date, ($Results| Out-String)
                 Write-Output $Message

@@ -1,17 +1,16 @@
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: runasqlscriptforben
-  namespace: arc
+  name: runasqlscript
 spec:
-  schedule: "*/11 * * * *"
+  schedule: "*/5 * * * *"
   jobTemplate:
     spec:
-      activeDeadlineSeconds: 1200
+      activeDeadlineSeconds: 15
       template:
         spec:
           containers:
-            - name: dbatoolspowershellcontainerben
+            - name: dbatoolspowershellcontainer1
               image: sqldbawithabeard/pwshdbatools:v1
               env:
                 - name: HOME
@@ -24,11 +23,12 @@ spec:
                 Write-Host "$Date - I am a script running in container"
         
                 $Query = "--  Sample use: create one million rows 
-                IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Example]') AND type in (N'U'))
+                IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Example]') AND type in (N'U'))
+                DROP TABLE [dbo].[Example];
                 CREATE TABLE dbo.Example (ExampleId  int  not null)  
                 
                 DECLARE @RowsToCreate int
-                SET @RowsToCreate = 100000
+                SET @RowsToCreate = 1000000
                 
                 --  Table of numbers data generator, as per Itzik Ben-Gan (from multiple sources)
                 ;WITH
@@ -45,12 +45,13 @@ spec:
                   where Number <= @RowsToCreate
 
                 SELECT COUNT(*) AS 'HowMany?','Whats Happening?' AS 'What Ben Says', GetDate() AS 'When' FROM dbo.Example
-                IF (SELECT COUNT(*) FROM dbo.Example) > 2000000
-                DROP TABLE dbo.Example
+                IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Example]') AND type in (N'U'))
+                DROP TABLE [dbo].[Example];
+
                 SELECT 'Finished' 
                 "
-                $Server = 'ben-nuc-mi-external-svc'
-                $database = 'tempdb'
+                $Server = '10.99.125.60'
+
                 $Date = Get-Date -Format yyyyMMdd-HHmmsss
                 Write-Host "$Date - I am importing dbatools"
                 
@@ -61,7 +62,7 @@ spec:
                 $secStringPassword = ConvertTo-SecureString 'dbatools!12345' -AsPlainText -Force
                 [pscredential]$sqllogin = New-Object System.Management.Automation.PSCredential ('benadmin', $secStringPassword)
                 
-                $Results = Invoke-DBaQuery -SQlINstance $server -SqlCredential $sqllogin -Query $Query -Database $database -Verbose
+                $Results = Invoke-DBaQuery -SQlINstance $server -SqlCredential $$sqllogin -Query $Query -Database tempdb -Verbose
                 $Date = Get-Date -Format yyyyMMdd-HHmmsss
                 $Message =  "{0}- I got {1}" -f $date, ($Results| Out-String)
                 Write-Output $Message
