@@ -49,8 +49,12 @@ $deploymentConfig = @{
         creator      = 'The Beard'
         project      = 'For Ben'
         BenIsAwesome = $true
+        location = 'In AWS'
     }
 }
 
 New-AzResourceGroupDeployment @deploymentConfig # -WhatIf  # uncomment what if to see "what if" !!
 
+az sql mi-arc list -k arc --use-k8s
+az sql mi-arc show -n $sqlMIName --k8s-namespace arc --use-k8s
+az sql mi-arc endpoint list -n $sqlMIName --k8s-namespace arc --use-k8s
